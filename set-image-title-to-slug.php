@@ -13,8 +13,10 @@
  * Description: Automatically sets the Media Library image slug to the the image title. This creates a new image URL based upon new image title.
  * Author: Andy Fragen
  * License: MIT
- * Version: 0.0.1
- * Requires at least: 4.6
+ * Version: 0.1.0
+ * Domain Path: /languages
+ * Text Domain: set-image-title-to-slug
+ * Requires at least: 4.8
  * Requires PHP: 5.6
  * GitHub Plugin URI: https://github.com/afragen/set-image-title-to-slug
  */
