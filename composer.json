@@ -1,0 +1,38 @@
+{
+    "name": "afragen/rename-image-meta-to-title",
+    "description": "Automatically sets the Media Library image slug, file, and URL to the the image title on save.",
+    "type": "wordpress-plugin",
+    "keywords": [
+        "image",
+        "filename",
+        "slug"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andy Fragen",
+            "email": "andy@thefragens.com",
+            "homepage": "https://thefragens.com",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/afragen/rename-image-meta-to-title"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/afragen/rename-image-meta-to-title/issues",
+        "source": "https://github.com/afragen/rename-image-meta-to-title"
+    },
+    "prefer-stable": true,
+    "require": {
+        "php": ">=5.6"
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "wp i18n make-pot . languages/rename-image-meta-to-title.pot"
+        ]
+    }
+}
