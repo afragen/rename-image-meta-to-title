@@ -13,7 +13,7 @@
  * Description: Automatically sets the Media Library image slug, file, and URL to the the image title on save.
  * Author: Andy Fragen
  * License: MIT
- * Version: 0.1.1
+ * Version: 0.2.0
  * Domain Path: /languages
  * Text Domain: rename-image-meta-to-title
  * Requires at least: 4.8
