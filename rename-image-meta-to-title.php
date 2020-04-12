@@ -13,7 +13,7 @@
  * Description: Automatically sets the Media Library image slug, file, and URL to the the image title on save.
  * Author: Andy Fragen
  * License: MIT
- * Version: 0.1.0
+ * Version: 0.1.1
  * Domain Path: /languages
  * Text Domain: rename-image-meta-to-title
  * Requires at least: 4.8
@@ -54,6 +54,9 @@ class Rename_Image_Meta_To_Title {
 
 	/**
 	 * Rename image files and URL from post title.
+	 *
+	 * Based in part on the Rename Media Files plugin.
+	 * @link https://wordpress.org/plugins/rename-media-files/
 	 *
 	 * @param \WP_Post $post Current post.
 	 *

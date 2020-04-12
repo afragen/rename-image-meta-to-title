@@ -13,3 +13,5 @@
 Automatically sets the Media Library image slug, file, and URL to the the image title on save.
 
 This was written for my wife's recipe website to help when she adds images.
+
+* Based in part on the [Rename Media Files](https://wordpress.org/plugins/rename-media-files/) plugin by [Milan Dinić](https://milandinic.com).
