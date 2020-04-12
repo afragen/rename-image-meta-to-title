@@ -85,8 +85,8 @@ class Rename_Image_Meta_To_Title {
 						$orig_image_data                = wp_get_attachment_image_src( $post['ID'], $image_size );
 						$orig_image_urls[ $image_size ] = $orig_image_data[0];
 					}
-					// Otherwise, get URL to original file.
 				} else {
+					// Otherwise, get URL to original file.
 					$orig_attachment_url = wp_get_attachment_url( $post['ID'] );
 				}
 
@@ -95,6 +95,7 @@ class Rename_Image_Meta_To_Title {
 				$new_filename = "{$new_slug}.{$extension}";
 				$new_file     = "{$orig_dir_path}/{$new_filename}";
 
+				// Remove old image sizes.
 				$orig_metadata = wp_create_image_subsizes( $orig_file, $post['ID'] );
 				if ( isset( $orig_metadata['sizes'] ) ) {
 					foreach ( $orig_metadata['sizes'] as $size ) {
