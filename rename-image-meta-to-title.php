@@ -56,6 +56,7 @@ class Rename_Image_Meta_To_Title {
 	 * Rename image files and URL from post title.
 	 *
 	 * Based in part on the Rename Media Files plugin.
+	 *
 	 * @link https://wordpress.org/plugins/rename-media-files/
 	 *
 	 * @param \WP_Post $post Current post.
@@ -66,17 +67,17 @@ class Rename_Image_Meta_To_Title {
 		if ( 'attachment' === $post['post_type'] && 'editpost' === $post['action'] ) {
 			// Proceed only if slug has changed.
 			if ( $post['post_name'] !== $post['post_title'] ) {
-				/* Get original filename */
+				// Get original filename.
 				$orig_file     = get_attached_file( $post['ID'] );
 				$orig_filename = basename( $orig_file );
 
-				/* Get original path of file */
+				// Get original path of file.
 				$orig_dir_path = substr( $orig_file, 0, ( strrpos( $orig_file, '/' ) ) );
 
-				/* Get image sizes */
+				// Get image sizes.
 				$image_sizes = array_merge( get_intermediate_image_sizes(), [ 'full' ] );
 
-				/* If image, get URLs to original sizes */
+				// If image, get URLs to original sizes.
 				if ( wp_attachment_is_image( $post['ID'] ) ) {
 					$orig_image_urls = [];
 
@@ -84,7 +85,7 @@ class Rename_Image_Meta_To_Title {
 						$orig_image_data                = wp_get_attachment_image_src( $post['ID'], $image_size );
 						$orig_image_urls[ $image_size ] = $orig_image_data[0];
 					}
-					/* Otherwise, get URL to original file */
+					// Otherwise, get URL to original file.
 				} else {
 					$orig_attachment_url = wp_get_attachment_url( $post['ID'] );
 				}
@@ -103,10 +104,10 @@ class Rename_Image_Meta_To_Title {
 
 				rename( $orig_file, $new_file );
 
-				/* Update file location in database */
+				// Update file location in database.
 				update_attached_file( $post['ID'], $new_file );
 
-				/* Update guid for attachment */
+				// Update guid for attachment.
 				$post_for_guid = get_post( $post['ID'] );
 				$guid          = str_replace( $orig_filename, $new_filename, $post_for_guid->guid );
 
@@ -117,13 +118,13 @@ class Rename_Image_Meta_To_Title {
 					]
 				);
 
-				/* Update attachment's metadata */
+				// Update attachment's metadata.
 				wp_update_attachment_metadata( $post['ID'], wp_generate_attachment_metadata( $post['ID'], $new_file ) );
 
-				/* Load global so that we can save to the database */
+				// Load global so that we can save to the database.
 				global $wpdb;
 
-				/* If image, get URLs to new sizes and update posts with old URLs */
+				// If image, get URLs to new sizes and update posts with old URLs.
 				if ( wp_attachment_is_image( $post['ID'] ) ) {
 					foreach ( $image_sizes as $image_size ) {
 						$orig_image_url = $orig_image_urls[ $image_size ];
@@ -133,7 +134,7 @@ class Rename_Image_Meta_To_Title {
 						// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 						$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_content = REPLACE(post_content, %s, %s);", $orig_image_url, $new_image_url ) );
 					}
-					/* Otherwise, get URL to new file and update posts with old URL */
+					// Otherwise, get URL to new file and update posts with old URL.
 				} else {
 					$new_attachment_url = wp_get_attachment_url( $post['ID'] );
 
