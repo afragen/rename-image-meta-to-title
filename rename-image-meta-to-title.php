@@ -23,12 +23,12 @@
 
 namespace Fragen\Rename_Image_Meta_To_Title;
 
-add_action( 'init', [ new Rename_Image_Meta_To_Title(), 'load_hooks' ] );
+add_action( 'init', [ new Rename(), 'load_hooks' ] );
 
 /**
  * Class Rename_Image_Meta_To_Title
  */
-class Rename_Image_Meta_To_Title {
+class Rename {
 	/**
 	 * Load hooks.
 	 */
