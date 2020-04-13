@@ -1,4 +1,6 @@
 #### [unreleased]
+
+#### 0.2.1 / 2020-04-13
 * totally refactored to rename file, slug, and URL on save
 * rename
 * credit to Milan Dinić for Rename Media Files plugin
