@@ -1,5 +1,8 @@
 #### [unreleased]
 
+#### 0.2.2 / 2020-04-14
+* ensure unique filename
+
 #### 0.2.1 / 2020-04-13
 * totally refactored to rename file, slug, and URL on save
 * rename

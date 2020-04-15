@@ -13,7 +13,7 @@
  * Description: Automatically sets the Media Library image slug, file, and URL to the the image title on save.
  * Author: Andy Fragen
  * License: MIT
- * Version: 0.2.1
+ * Version: 0.2.2
  * Domain Path: /languages
  * Text Domain: rename-image-meta-to-title
  * Requires at least: 4.8
@@ -92,7 +92,7 @@ class Rename {
 
 				$new_slug     = sanitize_title( $post['post_title'] );
 				$extension    = pathinfo( $orig_filename, PATHINFO_EXTENSION );
-				$new_filename = "{$new_slug}.{$extension}";
+				$new_filename = wp_unique_filename( $orig_dir_path, "{$new_slug}.{$extension}" );
 				$new_file     = "{$orig_dir_path}/{$new_filename}";
 
 				// Remove old image sizes.
