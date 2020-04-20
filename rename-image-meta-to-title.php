@@ -13,7 +13,7 @@
  * Description: Automatically sets the Media Library image slug, file, and URL to the the image title on save.
  * Author: Andy Fragen
  * License: MIT
- * Version: 0.2.2
+ * Version: 0.2.3
  * Domain Path: /languages
  * Text Domain: rename-image-meta-to-title
  * Requires at least: 4.8
@@ -34,7 +34,7 @@ class Rename {
 	 */
 	public function load_hooks() {
 		add_filter( 'wp_insert_attachment_data', [ $this, 'change_post_slug' ], 50, 1 );
-		add_filter( 'attachment_fields_to_save', [ $this, 'rename_media_files_attachment_fields_on_save' ], 11, 1 );
+		add_filter( 'attachment_fields_to_save', [ $this, 'rename_attachment_file_URL_on_save' ], 11, 1 );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Rename {
 	 *
 	 * @return \WP_Post
 	 */
-	public function rename_media_files_attachment_fields_on_save( $post ) {
+	public function rename_attachment_file_URL_on_save( $post ) {
 		if ( 'attachment' === $post['post_type'] && 'editpost' === $post['action'] ) {
 			// Proceed only if slug has changed.
 			if ( $post['post_name'] !== $post['post_title'] ) {
@@ -120,6 +120,7 @@ class Rename {
 				);
 
 				// Update attachment's metadata.
+				// Creates new image sizes.
 				wp_update_attachment_metadata( $post['ID'], wp_generate_attachment_metadata( $post['ID'], $new_file ) );
 
 				// Load global so that we can save to the database.

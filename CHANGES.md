@@ -1,5 +1,8 @@
 #### [unreleased]
 
+#### 0.2.3 / 2020-04-20
+* rename function and add comments
+
 #### 0.2.2 / 2020-04-14
 * ensure unique filename
 

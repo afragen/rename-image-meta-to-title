@@ -9,6 +9,7 @@
 * License:           MIT
 * Requires PHP:      5.6
 * Requires at least: 4.6
+* Tested up to:      5.4
 
 Automatically sets the Media Library image slug, file, and URL to the the image title on save.
 
