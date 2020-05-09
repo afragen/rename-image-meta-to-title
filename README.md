@@ -4,14 +4,14 @@
 * Plugin URI:        https://github.com/afragen/rename-image-meta-to-title
 * Author:            Andy Fragen
 * Author URI:        http://thefragens.com/
-* Description:       Automatically sets the Media Library image slug, file, and URL to the the image title on save.
+* Description:       Automatically sets the Media Library image slug, file, missing alt text, and URL to the the image title on save.
 * Stable tag:        master
 * License:           MIT
 * Requires PHP:      5.6
 * Requires at least: 4.6
 * Tested up to:      5.4
 
-Automatically sets the Media Library image slug, file, and URL to the the image title on save.
+Automatically sets the Media Library image slug, file, missing alt text, and URL to the the image title on save.
 
 This was written for my wife's recipe website to help when she adds images.
 

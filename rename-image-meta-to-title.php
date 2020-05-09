@@ -10,10 +10,10 @@
 
 /**
  * Plugin Name: Rename Image Meta to Title
- * Description: Automatically sets the Media Library image slug, file, and URL to the the image title on save.
+ * Description: Automatically sets the Media Library image slug, file, missing alt text, and URL to the the image title on save.
  * Author: Andy Fragen
  * License: MIT
- * Version: 0.2.3
+ * Version: 0.3.0
  * Domain Path: /languages
  * Text Domain: rename-image-meta-to-title
  * Requires at least: 4.8
@@ -26,7 +26,7 @@ namespace Fragen\Rename_Image_Meta_To_Title;
 add_action( 'init', [ new Rename(), 'load_hooks' ] );
 
 /**
- * Class Rename_Image_Meta_To_Title
+ * Class Rename
  */
 class Rename {
 	/**
@@ -34,15 +34,16 @@ class Rename {
 	 */
 	public function load_hooks() {
 		add_filter( 'wp_insert_attachment_data', [ $this, 'change_post_slug' ], 50, 1 );
-		add_filter( 'attachment_fields_to_save', [ $this, 'rename_attachment_file_URL_on_save' ], 11, 1 );
+		add_filter( 'attachment_fields_to_save', [ $this, 'rename_attachment_file_url_on_save' ], 11, 1 );
+		add_filter( 'attachment_fields_to_save', [ $this, 'add_alt_text' ], 12, 1 );
 	}
 
 	/**
 	 * Change post slug.
 	 *
-	 * @param \WP_Post $post Current post.
+	 * @param array $post Current post.
 	 *
-	 * @return \WP_Post
+	 * @return array
 	 */
 	public function change_post_slug( $post ) {
 		if ( $post['post_name'] !== $post['post_title'] ) {
@@ -59,11 +60,11 @@ class Rename {
 	 *
 	 * @link https://wordpress.org/plugins/rename-media-files/
 	 *
-	 * @param \WP_Post $post Current post.
+	 * @param array $post Current post.
 	 *
-	 * @return \WP_Post
+	 * @return array
 	 */
-	public function rename_attachment_file_URL_on_save( $post ) {
+	public function rename_attachment_file_url_on_save( $post ) {
 		if ( 'attachment' === $post['post_type'] && 'editpost' === $post['action'] ) {
 			// Proceed only if slug has changed.
 			if ( $post['post_name'] !== $post['post_title'] ) {
@@ -143,6 +144,23 @@ class Rename {
 					// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 					$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_content = REPLACE(post_content, %s, %s);", $orig_attachment_url, $new_attachment_url ) );
 				}
+			}
+		}
+
+		return $post;
+	}
+
+	/**
+	 * Add alt text if missing.
+	 *
+	 * @param array $post Current post.
+	 *
+	 * @return array
+	 */
+	public function add_alt_text( $post ) {
+		if ( 'attachment' === $post['post_type'] && 'editpost' === $post['action'] ) {
+			if ( empty( $post['_wp_attachment_image_alt'] ) ) {
+				update_post_meta( $post['ID'], '_wp_attachment_image_alt', wp_slash( $post['post_title'] ) );
 			}
 		}
 
